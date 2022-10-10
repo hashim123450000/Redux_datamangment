@@ -1,0 +1,70 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import myStore from "../../store/store";
+import { useNavigate } from "react-router-dom";
+
+
+export default function Signup() {
+  const navigate =useNavigate()
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const Singupuser = (user)=> {
+
+    myStore.dispatch({
+      type:'Signupdata',
+      payload:user
+    })
+    if(user){
+      navigate('/logn')
+    }
+  
+   
+  }
+
+
+  return (
+    <div style={{
+      backgroundColor: "green"
+    }}>
+    <Card sx={{ maxWidth: 345,
+    marginLeft:"35%",
+    height:200,
+    justifyContent:"space-between"
+    
+     }}>
+      <form onSubmit={handleSubmit(Singupuser)}>
+
+        <input placeholder="name" {...register("name", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+
+        <input  placeholder="password"  type="password" {...register("password", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+
+        <input  placeholder="E-mal"  {...register("mal", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+
+        <input  placeholder="number"  type="number"  {...register("number", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+
+        <input  placeholder="age" type="number"  {...register("age", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+        
+        <input  placeholder="adress"   {...register("adress", { required: true })} />
+        {errors.exampleRequired && <span>This field is required</span>}
+        <br/>
+
+      <button>submtt</button>
+      </form>
+
+
+
+
+    </Card>
+    </div>
+  )
+}
